@@ -1,0 +1,37 @@
+config "/etc/snort/snort.conf"
+
+ -- ipvar HOME_NET "ip local"
+
+config /etc/snort/rules/local.rules
+
+ -- alert ip any any -> any any (msg: "IP running"; sid:10000; rev:1;)
+
+render
+
+ --sudo snort -T -i "interface" -c /etc/snort/snort.conf
+
+running
+ 
+  --sudo snort -A console -q -c /etc/snort/snort.conf -i "interface"
+
+
+<local.rules>
+
+//Kiem tra
+  --alert ip any any -> any any (msg: "IP running"; sid:10000; rev:1;)
+//SYN Flood
+  --alert tcp any any -> any any (msg: "SYN Flood"; sid: 100003; flags: S; flow: steless; detection_filter: track by_dst, count 100, seconds 10;)
+//Ping Flood
+  --alert icmp any any -> $HOME_NET any (msg:"ICMP flood"; sid:1000001; rev:1; classtype:icmp-event; detection_filter:track by_dst, count 500, seconds 3;)
+//SQL Injection
+  -- alert tcp any any -> any 80 (msg: "SQL injection"; content: "%27"; sid: 8794438;)
+  -- alert tcp any any -> any 80 (msg: "SQL injection"; content: "22"; sid: 1827367589
+
+
+<icmp.rules>
+
+//Ping of Death
+ --alert icmp any any -> any any (dsize: > 10000; msg: "Ping of Death"; sid: 99999;)
+
+
+
