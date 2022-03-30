@@ -6,7 +6,7 @@
     if(isset($_POST['username']) && isset($_POST['password'])){
         $query = "SELECT * FROM userdata WHERE username = '$userName' AND password = '$password'";
     }
-    echo $query;
+
     $exec = $conn -> query($query);
     $result = $exec -> fetch_assoc();
     if($result == null) {
