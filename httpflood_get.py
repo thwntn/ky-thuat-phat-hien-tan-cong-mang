@@ -4,9 +4,9 @@ import sys
 import socket as s
 import threading
 
-target_ip=input("Nhap dia chi nan nhan: ")
-target_port=int(input("Nhap port: "))
-thr = int(input("Thread: "))
+target_ip = input("Enter the target to attack: ")
+target_port = int(input("Port: "))
+thr = int(input("Threading: "))
 
 def http (target_ip, target_port, i) :
     try:

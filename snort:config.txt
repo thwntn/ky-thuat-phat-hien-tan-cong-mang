@@ -22,10 +22,10 @@ running
 //SYN Flood
   --alert tcp any any -> any any (msg: "SYN Flood"; sid: 100003; flags: S; flow: steless; detection_filter: track by_dst, count 100, seconds 10;)
 //Ping Flood
-  --alert icmp any any -> $HOME_NET any (msg:"ICMP flood"; sid:1000001; rev:1; classtype:icmp-event; detection_filter:track by_dst, count 500, seconds 3;)
+  --alert icmp any any -> $HOME_NET any (msg:"ICMP flood"; sid: 100; detection_filter:track by_dst, count 500, seconds 3;)
 //SQL Injection
   -- alert tcp any any -> any 80 (msg: "SQL injection"; content: "%27"; sid: 8794438;)
-  -- alert tcp any any -> any 80 (msg: "SQL injection"; content: "22"; sid: 1827367589
+  -- alert tcp any any -> any 80 (msg: "SQL injection"; content: "22"; sid: 1827367589)
 
 <icmp.rules>
 //Ping of Death

